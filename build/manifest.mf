@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Main-Class: src.main.java.Visitor
+Class-Path: .
+            lib/force-wsc-36.2.0.jar
+            lib/log4j-1.2.9.jar
+            lib/partner.jar
+            lib/sqljdbc4.jar
