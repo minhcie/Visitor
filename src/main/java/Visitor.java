@@ -75,20 +75,25 @@ public class Visitor {
                 if (contact.email != null && contact.email.trim().length() > 0) {
                     SObject so = queryContact(connection, contact.email);
                     if (so != null) {
-                        log.info("Contact: " + contact.email + " already existed!");
+                        log.info("Visitor: " + contact.email + " already existed!");
                     }
                     else {
                         if (contact.lastName == null || contact.lastName.trim().length() <= 0) {
-                            log.info("New contact with missing last name");
+                            log.info("*** Last name not found for new visitor: " +
+                                     contact.firstName + ", email: " + contact.email);
                         }
                         else if (contact.company == null || contact.company.trim().length() <= 0) {
-                            log.info("New contact with missing company name");
+                            log.info("*** Company name not found for new visitor: " +
+                                     contact.lastName + ", email: " + contact.email);
                         }
                         else {
-                            log.info("Adding new contact: " + contact.email + "...");
                             contacts.add(contact);
                         }
                     }
+                }
+                else {
+                    log.info("*** Email not found for new visitor: " +
+                             contact.firstName + " " + contact.lastName);
                 }
             }
 
@@ -102,6 +107,7 @@ public class Visitor {
                 SObject[] records = new SObject[n];
                 for (int i = 0; i < n; i++) {
                     ContactInfo ci = contacts.get(i);
+                    log.info("Adding new visitor: " + ci.email + "...");
 
                     // Check to see if organization is created?
                     String acctId = queryAccount(connection, ci.company);
